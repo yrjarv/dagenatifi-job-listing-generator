@@ -3,49 +3,13 @@ import mimetypes
 import base64
 
 def get_CSS(header_hex: str) -> str:
-    return """
-    .card {
-      height: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      background: white;
-      text-align: center;
-	  display: flex;
-	  flex-direction: column;
-    }
-
-    .card-header {
-      background: #""" + header_hex + """;
-      padding: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      color: white;
-    }
-
-    .card-logo {
-      margin: 20px auto 10px;
-      max-width: 120px;
-    }
-
-    .card-content {
-      padding: 0 16px 20px;
-      font-size: 14px;
-      color: #333;
-      line-height: 1.5;
-    }
-
-    .card-footer {
-      background: #008989;
-      padding: 12px;
-    }
-
-    .card-footer a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
+    result = """
+        .root {
+            --header-backgroud-color: #""" + header_hex + """
+        }
     """
+    with open("style.css") as file:
+        return result + file.read()
 
 def get_img_src(path: str) -> str:
     mime_type, _ = mimetypes.guess_type(path)
