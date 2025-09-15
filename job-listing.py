@@ -2,10 +2,6 @@ import sys
 import mimetypes
 import base64
 
-def get_css(header_hex: str) -> str:
-    with open(__file__.removesuffix(".py") + ".css") as file:
-        return file.read().replace("INSERT_HEX_HERE", header_hex)
-
 def get_img_src(path: str) -> str:
     mime_type, _ = mimetypes.guess_type(path)
     with open(path, "rb") as f:
@@ -14,10 +10,10 @@ def get_img_src(path: str) -> str:
     return f"data:{mime_type};base64,{encoded}"
 
 def get_html(job_type: str, company_name: str, logo_path: str, text: str,
-                link: str) -> str:
+             link: str, hex_code: str) -> str:
     return f"""
     <div class="card">
-        <div class="card-header">{job_type}</div>
+        <div class="card-header" style="background:#{hex_code}">{job_type}</div>
         <img class="card-logo" src="{get_img_src(logo_path)}"
             alt="{company_name}">
         <div class="card-content">{text}</div>
@@ -47,14 +43,8 @@ def getCard(job_type: str, company_name: str, logo_path: str, job_description:
         print("Too long description")
         return ""
 
-    return f"""
-        <style>
-            {get_css(hex_codes[job_type])}
-        </style>
-        {get_html(
-            job_type, company_name, logo_path, job_description, link
-        )}
-    """
+    return get_html( job_type, company_name, logo_path, job_description, link,
+                    hex_codes[job_type])
     
 def help() -> str:
     return (
