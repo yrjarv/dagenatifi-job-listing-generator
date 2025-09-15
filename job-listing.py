@@ -3,13 +3,8 @@ import mimetypes
 import base64
 
 def get_css(header_hex: str) -> str:
-    result = """
-        .root {
-            --header-backgroud-color: #""" + header_hex + """
-        }
-    """
     with open(__file__.removesuffix(".py") + ".css") as file:
-        return result + file.read()
+        return file.read().replace("INSERT_HEX_HERE", header_hex)
 
 def get_img_src(path: str) -> str:
     mime_type, _ = mimetypes.guess_type(path)

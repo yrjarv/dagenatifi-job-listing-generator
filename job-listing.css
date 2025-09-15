@@ -11,7 +11,7 @@
 }
 
 .card-header {
-	background: var(--header-backgroud-color);
+	background: #INSERT_HEX_HERE;
 	padding: 8px;
 	font-size: 14px;
 	font-weight: bold;
